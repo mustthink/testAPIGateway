@@ -3,10 +3,10 @@ FROM golang:1.17
 WORKDIR .
 
 COPY go.mod go.sum service/
-RUN cd server && go mod download && go mod verify
+RUN cd service && go mod download && go mod verify
 
 COPY . service/
 
-RUN cd server && go mod tidy && go build main.go
+RUN cd service && go mod tidy && go build cmd/app.go
 
-CMD server/main
+CMD service/app
