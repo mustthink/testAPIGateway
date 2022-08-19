@@ -13,6 +13,9 @@ func main() {
 	connStr := "host=172.16.1.4 user=postgres password=123456 dbname=users sslmode=disable"
 	addr := "172.16.1.5:8081"
 
+	//connStr := "user=postgres password=123456 dbname=users sslmode=disable"
+	//addr := "localhost:8081"
+
 	pg, err := auth.OpenDB(connStr)
 	if err != nil {
 		errorLog.Fatal(err)

@@ -4,17 +4,7 @@ import (
 	"database/sql"
 	"log"
 	"net/http"
-	"time"
 )
-
-type User struct {
-	Id       int
-	Username string
-	Email    string
-	Dob      time.Time
-	Age      int
-	Number   string
-}
 
 type Service struct {
 	errorLog *log.Logger
@@ -44,18 +34,17 @@ func (s *Service) Verify(w http.ResponseWriter, r *http.Request) {
 		s.errorLog.Println(w, http.StatusMethodNotAllowed)
 		return
 	}
+	i := 0
 	u := r.Header.Get("Username")
-	u = "Test5"
-	us := User{}
-	stmt := `select * from users where Username = $1`
-
-	err := s.DB.QueryRow(stmt, u).Scan(&us.Id, &us.Username, &us.Email, &us.Dob, &us.Age, &us.Number)
+	stmt := `select count(*) from users where Username = $1`
+	err := s.DB.QueryRow(stmt, u).Scan(&i)
 	if err != nil {
-		if err != sql.ErrNoRows {
-			s.errorLog.Println(err)
-		}
+		s.errorLog.Println(err)
+	}
 
+	if i != 0 {
+		w.WriteHeader(http.StatusOK)
+	} else {
 		w.WriteHeader(http.StatusUnauthorized)
 	}
-	w.WriteHeader(http.StatusOK)
 }
