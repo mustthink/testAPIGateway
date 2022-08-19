@@ -9,14 +9,15 @@ import (
 
 type application struct {
 	errorLog *log.Logger
-	timeLog  *log.Logger
 	url      *string
+	client   *http.Client
 }
 
 func NewApplication(errorLog *log.Logger, url *string) *application {
 	return &application{
 		errorLog: errorLog,
 		url:      url,
+		client:   &http.Client{},
 	}
 }
 

@@ -8,8 +8,8 @@ import (
 )
 
 func main() {
-	//connStr := "host=172.16.1.4 user=postgres password=123456 dbname=users sslmode=disable"
-	addr := "localhost:8083"
+	//addr := "localhost:8083"
+	addr := "172.16.1.3:8083"
 
 	errorLog := log.New(os.Stderr, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
 	app := handlers.NewApplication(errorLog, &addr)
