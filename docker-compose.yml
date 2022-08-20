@@ -4,7 +4,7 @@ services:
 
   db:
     build: db
-    container_name: test_db
+    container_name: user_db
     restart: always
     environment:
       POSTGRES_PASSWORD: 123456
@@ -20,6 +20,8 @@ services:
     restart: always
     ports:
       - 8081:8081
+    links:
+      - db
     networks:
       default:
         ipv4_address: 172.16.1.5
@@ -29,6 +31,8 @@ services:
     restart: always
     ports:
       - 8082:8082
+    links:
+      - db
     networks:
       default:
         ipv4_address: 172.16.1.2
@@ -38,6 +42,10 @@ services:
     restart: always
     ports:
       - 8083:8083
+    links:
+      - db
+      - auth
+      - user
     networks:
       default:
         ipv4_address: 172.16.1.3

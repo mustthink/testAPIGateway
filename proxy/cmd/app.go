@@ -8,7 +8,6 @@ import (
 )
 
 func main() {
-	//addr := "localhost:8083"
 	addr := "172.16.1.3:8083"
 
 	errorLog := log.New(os.Stderr, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
